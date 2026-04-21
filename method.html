@@ -99,8 +99,7 @@
           We collected regular season win totals for all 32 NFL teams from 2012 through 2024
           using Covers.com's historical standings pages (e.g.,
           <a href="https://www.covers.com/sport/football/nfl/standings/2012-2013" style="color:var(--accent2);" target="_blank">covers.com/sport/football/nfl/standings/2012-2013</a>).
-          For each season, we recorded each team's regular season win total (out of 16 games
-          for 2012–2020, and 17 games from 2021 onward). Data was recorded manually into a
+          For each season, we recorded each team's regular season win total. Data was recorded manually into a
           shared spreadsheet.
         </div>
       </li>
@@ -113,19 +112,16 @@
           a third-party analytics platform that tracks historical social media statistics.
           For each of the 32 NFL teams, we looked up the official team Instagram account
           and recorded approximate follower counts at the end of each calendar year from
-          2012 to 2024. Where exact end-of-year figures were unavailable, we used the
-          closest available data point and noted this in our records.
+          2012 to 2024. 
         </div>
       </li>
       <li>
         <span class="step-num">03</span>
         <div class="step-text">
           <strong>Cultural Event Annotation</strong>
-          In addition to our two primary variables, we manually compiled a list of notable
-          off-field events that could plausibly explain outlier follower spikes — including
-          high-profile player signings, celebrity relationships with players, Super Bowl wins,
-          and viral media moments. These were not used in our quantitative analysis but are
-          flagged in our visualizations to provide qualitative context.
+          In addition to Instagram followers and NFL win/loss records, we also manually made a list off 
+          off-field events that could possibly explain outlier follower spikes. these included
+          celebrity relationships with players, Super Bowl wins, and viral media moments. These were flagged in our graphs to provide context.
         </div>
       </li>
     </ul>
@@ -133,68 +129,46 @@
 
   <h2 class="section-label">Scope & Limitations</h2>
   <p class="prose">
-    To keep the project manageable, we made several deliberate scoping decisions.
-    First, we focused only on regular season win totals rather than more granular
-    performance metrics (e.g., points scored, margin of victory, playoff outcomes).
-    Second, we used year-end follower snapshots rather than tracking follower counts
-    on a weekly or monthly basis. Third, because Social Blade's historical data has
-    some gaps for accounts prior to 2015, follower counts for the earliest years in
-    our dataset carry more uncertainty than later years.
-  </p>
-  <p class="prose">
-    We also limited our analysis to the official team Instagram accounts, excluding
-    player accounts, league accounts, and fan pages. This was necessary to ensure
+    To keep the project manageable, we made several deliberate boundaries.
+    1.) We focused only on regular season win totals.
+    
+    2.) We used year-end follower snapshots rather than tracking follower counts
+    on a weekly or monthly basis. 
+    
+    3.) We limited our analysis to the official team Instagram accounts. This was important to make sure
     we were measuring team-level brand growth rather than individual athlete popularity.
+  
   </p>
 
   <h2 class="section-label">Analysis Approach</h2>
   <p class="prose">
-    Our analysis is primarily <strong>quantitative</strong> — we compared win totals to year-over-year
+    Our analysis is primarily <strong>quantitative</strong>. We compared win totals to year-over-year
     follower growth rates for each team and looked for patterns across the league.
-    We also conducted a more <strong>qualitative</strong> layer of analysis by identifying teams whose
-    follower growth significantly outpaced or underperformed their win/loss record,
+    We also gathered more <strong>qualitative</strong> data by identifying
     then researching what off-field factors might explain those anomalies.
   </p>
   <p class="prose">
-    Findings are presented through interactive line graphs and bar charts built using
-    Chart.js, allowing readers to explore individual team trends and compare teams
-    side by side. Gold-highlighted data points on the charts indicate years with
-    confirmed cultural or media events that may have influenced follower counts.
+    Our findings are presented through line graphs and bar charts allowing readers to explore individual team trends and compare teams
+    side by side.
   </p>
 
   <h2 class="section-label">AI Tool Usage</h2>
   <div class="ai-card">
     <div class="ai-card-label">Reflection on AI in Our Process</div>
     <p class="prose" style="margin-bottom:12px;">
-      We used two AI tools over the course of this project: <strong>ChatGPT</strong> (OpenAI) and
-      <strong>Claude</strong> (Anthropic). It is important to be transparent about what we delegated
-      to these tools and what we chose to do ourselves.
-    </p>
+      We used
+      <strong>Claude</strong>. We find it very important to be transparent about what we used these tools for.
     <p class="prose" style="margin-bottom:12px;">
-      <strong>Claude</strong> was used extensively to build the website you are currently reading.
-      We described the structure we wanted — a multi-page site with interactive charts,
-      a pink color scheme, NFL team colors, and the official NFL logo — and Claude
-      generated the HTML, CSS, and JavaScript code. We then reviewed the output,
-      tested it in a browser, and requested revisions iteratively. We made deliberate
-      choices about what to ask for versus what to specify ourselves: for example,
-      we chose the color scheme and overall structure, while Claude handled the
-      technical implementation of Chart.js and the responsive layout.
-    </p>
-    <p class="prose" style="margin-bottom:12px;">
-      <strong>ChatGPT</strong> was used during the early research and brainstorming phase to help
-      us identify relevant academic literature on sports and social media and to
-      think through how to frame our research question. We did not use it to
-      generate data or write final prose that appears in this site.
+      <strong>Claude</strong> was used extensively to build the website you are currently reading! at first we didn;t know what we wanted the webste to look like, so Claude helped us play around with vibes, looks, and organization before we really got to work. We then started working in VS Code and were beyond lots on some parts. Claude helped fit our code and clean up code where needed.
+      We made it a priority to understand the code we were given and to ask follow-up questions when we didn't. 
+      
     </p>
     <p class="prose" style="margin-bottom:0;">
-      Using these tools raised important questions for us about authorship, delegation,
-      and learning. Building the website with Claude was faster than learning web
+      Building the website with Claude was faster than learning web
       development from scratch, but it also meant we sometimes received code we did
-      not fully understand. This required us to ask follow-up questions, test
-      carefully, and develop enough literacy to evaluate the output critically.
-      The data collection, analysis, and written content are entirely our own work.
-      The AI tools served as a technical assistant for implementation — not a
-      replacement for research or original thinking.
+      not fully understand. we had to make sure and us to ask follow-up questions, ask eachother and work 
+      carefully. The data collection, analysis, and written content are entirely our own work!
+      
     </p>
   </div>
 
