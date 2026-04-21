@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NFL × Instagram | Literature Review</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #fce4ec; --surface: #fff0f5; --surface2: #ffd6e7;
+    --border: rgba(180,0,60,0.15); --text: #2d0a1a; --muted: #a0506a;
+    --accent: #d81b60; --accent2: #001f5b;
+    --font-display: 'Bebas Neue', sans-serif; --font-body: 'DM Sans', sans-serif;
+    --radius: 10px; --radius-lg: 16px;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-body); background: var(--bg); color: var(--text); min-height: 100vh; font-size: 15px; line-height: 1.6; }
+  .nav { position: sticky; top: 0; z-index: 100; background: rgba(252,228,236,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 6px; padding: 10px 20px; flex-wrap: wrap; }
+  .nav-logo { font-family: var(--font-display); font-size: 22px; letter-spacing: 1px; color: var(--accent2); margin-right: 12px; flex-shrink: 0; display: flex; align-items: center; gap: 8px; text-decoration: none; }
+  .nav-logo img { height: 28px; width: auto; }
+  .nav-link { padding: 5px 14px; border-radius: 6px; border: 1px solid var(--border); background: transparent; color: var(--muted); font-size: 13px; font-family: var(--font-body); cursor: pointer; transition: all 0.15s; white-space: nowrap; text-decoration: none; display: inline-block; }
+  .nav-link:hover { background: var(--surface2); color: var(--text); }
+  .nav-link.active { background: var(--accent2); color: #fff; border-color: var(--accent2); font-weight: 600; }
+  .page-wrap { max-width: 820px; margin: 0 auto; padding: 48px 24px 64px; }
+  .page-eyebrow { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .page-title { font-family: var(--font-display); font-size: clamp(40px, 8vw, 68px); line-height: 0.95; letter-spacing: 2px; color: var(--text); margin-bottom: 16px; }
+  .page-title span { color: var(--accent2); }
+  .page-subtitle { font-size: 15px; color: var(--muted); margin-bottom: 36px; line-height: 1.7; max-width: 620px; }
+  .nfl-stripe { display: flex; height: 4px; border-radius: 3px; overflow: hidden; margin-bottom: 36px; gap: 2px; }
+  .nfl-stripe span { flex: 1; border-radius: 1px; }
+  .section-label { font-family: var(--font-display); font-size: 24px; letter-spacing: 1px; color: var(--text); margin: 40px 0 14px; border-left: 4px solid var(--accent); padding-left: 14px; }
+  .prose { color: var(--muted); line-height: 1.85; font-size: 15px; margin-bottom: 16px; }
+  .prose strong { color: var(--text); font-weight: 600; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px 28px; margin-bottom: 20px; }
+  .card-label { font-family: var(--font-display); font-size: 16px; letter-spacing: 1px; color: var(--accent2); margin-bottom: 10px; }
+  .cite { font-size: 12px; color: var(--accent); margin-top: 10px; font-style: italic; }
+  .cite a { color: var(--accent); }
+  hr { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+  .nav-btns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 48px; }
+  .btn { display: inline-block; padding: 10px 22px; border-radius: var(--radius); font-size: 13px; font-weight: 600; text-decoration: none; transition: opacity 0.15s; }
+  .btn-primary { background: var(--accent2); color: #fff; }
+  .btn-secondary { background: transparent; border: 1px solid var(--border); color: var(--muted); }
+  .btn:hover { opacity: 0.8; }
+  .footer { border-top: 1px solid var(--border); padding: 20px 24px; text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo">
+    <img src="https://upload.wikimedia.org/wikipedia/en/a/a2/National_Football_League_logo.svg" alt="NFL" onerror="this.style.display='none'">
+    NFL × IG
+  </a>
+  <a href="index.html" class="nav-link">Home</a>
+  <a href="literature.html" class="nav-link active">Literature Review</a>
+  <a href="method.html" class="nav-link">Methodology</a>
+  <a href="findings.html" class="nav-link">Findings</a>
+  <a href="conclusion.html" class="nav-link">Conclusion</a>
+  <a href="works-cited.html" class="nav-link">Works Cited</a>
+</nav>
+
+<div class="page-wrap">
+  <p class="page-eyebrow">Section 01</p>
+  <h1 class="page-title">Literature<br><span>Review</span></h1>
+  <p class="page-subtitle">
+    A survey of research on social media, sports fandom, and the relationship between
+    athletic performance and digital audience growth.
+  </p>
+  <div class="nfl-stripe">
+    <span style="background:#E31837;"></span><span style="background:#003594;"></span>
+    <span style="background:#FB4F14;"></span><span style="background:#203731;"></span>
+    <span style="background:#AA0000;"></span><span style="background:#004C54;"></span>
+    <span style="background:#0047AB;"></span><span style="background:#002244;"></span>
+  </div>
+
+  <h2 class="section-label">Social Media & Sports Organizations</h2>
+  <p class="prose">
+    Scholars have increasingly studied how professional sports franchises use social media to
+    cultivate and expand their fan bases. <strong>Pegoraro (2010)</strong> was among the first to examine
+    how professional athletes use Twitter to communicate directly with fans, finding that
+    authentic, personal content generated significantly more engagement than promotional material.
+    This early work established a foundational principle still relevant to Instagram today:
+    audiences respond to personality and access, not just performance.
+  </p>
+  <p class="prose">
+    Building on this, <strong>Filo, Lock, and Karg (2015)</strong> conducted a systematic review of social
+    media use in sport, concluding that platforms serve three primary functions for sports organizations:
+    relationship building, information sharing, and community formation. Crucially, their analysis
+    found that teams with consistent social media strategies maintained stronger follower bases
+    even during losing seasons — suggesting that off-field content strategy can buffer against
+    on-field underperformance.
+  </p>
+
+  <div class="card">
+    <div class="card-label">Key Finding from the Literature</div>
+    <p style="color:var(--muted);font-size:15px;line-height:1.8;margin:0;">
+      Teams with strong brand identities and consistent social media content strategies
+      tend to retain — and even grow — their audiences during losing seasons. Winning helps,
+      but it is not the only driver of follower growth.
+    </p>
+  </div>
+
+  <h2 class="section-label">Athletic Performance & Fan Engagement</h2>
+  <p class="prose">
+    Several studies have examined the direct relationship between on-field success and fan behavior.
+    <strong>Swanson, Gwinner, Larson, and Janda (2003)</strong> found that winning percentage is positively
+    correlated with game attendance, merchandise sales, and media consumption. However, their
+    findings also showed that this effect plateaus — teams that are consistently good do not see
+    proportional increases in engagement over time. Novelty and momentum matter as much as raw
+    winning percentage.
+  </p>
+  <p class="prose">
+    More recently, <strong>Watanabe, Yan, and Soebbing (2015)</strong> studied Twitter activity around
+    NFL games and found that game outcomes — particularly unexpected wins or losses — generated
+    far more social media activity than anticipated results. This suggests that surprise and
+    narrative drama are stronger engagement drivers than simple winning, which has direct
+    implications for understanding Instagram follower trends.
+  </p>
+
+  <h2 class="section-label">Celebrity Culture & Sports Crossover</h2>
+  <p class="prose">
+    An important and underexplored dimension of sports social media growth is the role of
+    celebrity culture and media crossover. <strong>Andrews and Jackson (2001)</strong> introduced the concept
+    of the "sport celebrity" as a cultural commodity — arguing that certain athletes transcend
+    their sport to become broader pop-culture figures, dramatically expanding their audience
+    beyond traditional sports fans.
+  </p>
+  <p class="prose">
+    This phenomenon has become even more pronounced in the social media era.
+    <strong>Geurin-Eagleman and Burch (2016)</strong> found that Instagram accounts belonging to athletes
+    who engaged with entertainment, fashion, and lifestyle content attracted significantly
+    larger and more diverse audiences than those focused solely on athletic content.
+    This has direct relevance to our study: teams associated with high-profile celebrities —
+    whether through player relationships or cultural partnerships — may experience follower
+    spikes that have little to do with their win/loss record.
+  </p>
+
+  <div class="card">
+    <div class="card-label">Gap in the Literature</div>
+    <p style="color:var(--muted);font-size:15px;line-height:1.8;margin:0;">
+      While existing research examines either performance-based engagement or celebrity-driven
+      growth in isolation, few studies directly compare these two forces across an entire league
+      over multiple seasons. Our project addresses this gap by tracking all 32 NFL teams
+      simultaneously from 2012 to 2024.
+    </p>
+  </div>
+
+  <h2 class="section-label">Instagram as a Research Subject</h2>
+  <p class="prose">
+    Instagram, launched in 2010 and acquired by Facebook (now Meta) in 2012, has become one of
+    the primary platforms for sports content. <strong>Hambrick and Mahoney (2011)</strong> noted that visual
+    platforms are particularly well-suited to sports content because they capture the aesthetic
+    and emotional dimensions of athletic performance in ways that text-based media cannot.
+  </p>
+  <p class="prose">
+    <strong>Ruihley and Runyan (2016)</strong> specifically studied how NFL teams used Instagram during the
+    2014 season, finding that teams that posted more frequently and used more varied content types
+    — behind-the-scenes footage, player spotlights, game highlights — earned higher follower growth
+    rates than teams that posted only game-day content. This suggests that content strategy
+    mediates the relationship between performance and audience growth, complicating any simple
+    correlation between winning and follower counts.
+  </p>
+
+  <h2 class="section-label">What We Still Don't Know</h2>
+  <p class="prose">
+    Despite a growing body of research, several questions remain underexplored. Most studies
+    focus on short time windows — a single season or a few years — making it difficult to identify
+    long-term trends. Additionally, few studies have attempted to isolate the specific contribution
+    of external cultural events (celebrity news, viral moments, off-field controversies) from
+    performance-based growth. Our project contributes to addressing both of these gaps by
+    examining a thirteen-year longitudinal dataset and flagging known cultural events as
+    variables in our analysis.
+  </p>
+
+  <hr>
+  <div class="nav-btns">
+    <a href="index.html" class="btn btn-secondary">← Home</a>
+    <a href="method.html" class="btn btn-primary">Next: Methodology →</a>
+  </div>
+</div>
+
+<div class="footer">
+  Capstone Project · Data sourced from Covers.com, Social Blade, and NFL.com · 2025
+</div>
+
+</body>
+</html>

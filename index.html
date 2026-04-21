@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NFL × Instagram | Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #fce4ec; --surface: #fff0f5; --surface2: #ffd6e7;
+    --border: rgba(180,0,60,0.15); --text: #2d0a1a; --muted: #a0506a;
+    --accent: #d81b60; --accent2: #001f5b;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --radius: 10px; --radius-lg: 16px;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-body); background: var(--bg); color: var(--text); min-height: 100vh; font-size: 15px; line-height: 1.6; }
+  .nav { position: sticky; top: 0; z-index: 100; background: rgba(252,228,236,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 6px; padding: 10px 20px; flex-wrap: wrap; }
+  .nav-logo { font-family: var(--font-display); font-size: 22px; letter-spacing: 1px; color: var(--accent2); margin-right: 12px; flex-shrink: 0; display: flex; align-items: center; gap: 8px; text-decoration: none; }
+  .nav-logo img { height: 28px; width: auto; }
+  .nav-link { padding: 5px 14px; border-radius: 6px; border: 1px solid var(--border); background: transparent; color: var(--muted); font-size: 13px; font-family: var(--font-body); cursor: pointer; transition: all 0.15s; white-space: nowrap; text-decoration: none; display: inline-block; }
+  .nav-link:hover { background: var(--surface2); color: var(--text); }
+  .nav-link.active { background: var(--accent2); color: #fff; border-color: var(--accent2); font-weight: 600; }
+  .hero { padding: 56px 24px 40px; max-width: 860px; margin: 0 auto; }
+  .hero-eyebrow { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .hero-title { font-family: var(--font-display); font-size: clamp(52px, 10vw, 88px); line-height: 0.95; letter-spacing: 2px; color: var(--text); margin-bottom: 20px; }
+  .hero-title span { color: var(--accent2); }
+  .hero-subtitle { font-size: 16px; color: var(--muted); max-width: 580px; line-height: 1.7; margin-bottom: 32px; }
+  .nfl-stripe { display: flex; height: 5px; border-radius: 3px; overflow: hidden; margin-bottom: 28px; gap: 2px; }
+  .nfl-stripe span { flex: 1; border-radius: 1px; }
+  .stats-row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 48px; }
+  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; min-width: 120px; position: relative; overflow: hidden; }
+  .stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .stat-card:nth-child(1)::before { background: #E31837; }
+  .stat-card:nth-child(2)::before { background: #003594; }
+  .stat-card:nth-child(3)::before { background: #203731; }
+  .stat-num { font-family: var(--font-display); font-size: 36px; color: var(--accent2); line-height: 1; }
+  .stat-lbl { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .section { max-width: 860px; margin: 0 auto 32px; padding: 0 24px; }
+  .section-title { font-family: var(--font-display); font-size: 28px; letter-spacing: 1px; margin-bottom: 16px; color: var(--text); }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; margin-bottom: 16px; }
+  .card p { color: var(--muted); line-height: 1.8; margin-bottom: 12px; font-size: 15px; }
+  .card p:last-child { margin-bottom: 0; }
+  .card p strong { color: var(--text); font-weight: 600; }
+  .tag { display: inline-block; background: rgba(216,27,96,0.1); color: var(--accent); border: 1px solid rgba(216,27,96,0.25); border-radius: 100px; font-size: 11px; padding: 3px 10px; margin: 3px; font-weight: 500; }
+  .about-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+  .member-card { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+  .avatar { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 18px; margin-bottom: 10px; }
+  .member-name { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+  .member-role { font-size: 12px; color: var(--accent); margin-bottom: 6px; }
+  .member-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .nav-links-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+  .next-btn { display: inline-block; padding: 10px 22px; background: var(--accent2); color: #fff; border-radius: var(--radius); font-size: 13px; font-weight: 600; text-decoration: none; transition: opacity 0.15s; }
+  .next-btn:hover { opacity: 0.85; }
+  .footer { border-top: 1px solid var(--border); padding: 20px 24px; text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px; max-width: 860px; margin-left: auto; margin-right: auto; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo">
+    <img src="https://upload.wikimedia.org/wikipedia/en/a/a2/National_Football_League_logo.svg" alt="NFL" onerror="this.style.display='none'">
+    NFL × IG
+  </a>
+  <a href="index.html" class="nav-link active">Home</a>
+  <a href="literature.html" class="nav-link">Literature Review</a>
+  <a href="method.html" class="nav-link">Methodology</a>
+  <a href="findings.html" class="nav-link">Findings</a>
+  <a href="conclusion.html" class="nav-link">Conclusion</a>
+  <a href="works-cited.html" class="nav-link">Works Cited</a>
+</nav>
+
+<div class="hero">
+  <div style="display:flex; align-items:center; gap:14px; margin-bottom:20px;">
+    <img src="https://upload.wikimedia.org/wikipedia/en/a/a2/National_Football_League_logo.svg" alt="NFL Logo" style="height:64px; width:auto;" onerror="this.style.display='none'">
+    <p class="hero-eyebrow" style="margin-bottom:0;">Capstone Project · 2025</p>
+  </div>
+  <h1 class="hero-title">NFL<br><span>× Instagram</span></h1>
+  <p class="hero-subtitle">
+    Does on-field performance drive social media growth — or do cultural moments matter more?
+    We analyzed over a decade of NFL win/loss data alongside Instagram follower trends
+    to find out what really moves the needle.
+  </p>
+  <div class="nfl-stripe">
+    <span style="background:#E31837;"></span><span style="background:#003594;"></span>
+    <span style="background:#FB4F14;"></span><span style="background:#203731;"></span>
+    <span style="background:#AA0000;"></span><span style="background:#004C54;"></span>
+    <span style="background:#0047AB;"></span><span style="background:#D50A0A;"></span>
+    <span style="background:#a5acaf;"></span><span style="background:#c83803;"></span>
+    <span style="background:#0076B6;"></span><span style="background:#d3bc8d;"></span>
+    <span style="background:#002244;"></span>
+  </div>
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-num">32</div><div class="stat-lbl">NFL teams</div></div>
+    <div class="stat-card"><div class="stat-num">13</div><div class="stat-lbl">seasons tracked</div></div>
+    <div class="stat-card"><div class="stat-num">2012–24</div><div class="stat-lbl">years of data</div></div>
+  </div>
+</div>
+
+<div class="section">
+  <h2 class="section-title">Introduction</h2>
+  <div class="card">
+    <p>
+      This project looks into whether NFL team performance connects in any way to Instagram follower growth across all 32 teams from the years 2012 to 2024.
+      As social media has become one of the primary ways sports organizations connect with fans,
+      understanding what drives follower growth has real implications for team branding,
+      marketing strategy, and fan engagement.
+    </p>
+    <p>
+      Our central research question is: <strong>Does NFL team performance correlate with Instagram follower growth?</strong>
+      In order to answer this we have collected win and loss data from Covers.com and Instagram follower counts
+      from Social Blade. Then, we analyzed trends across all of these NFL teams over a thirteen-year period.
+    </p>
+    <p>
+      Our findings may be surprising to some.
+      While sustained success such as the Kansas City Chiefs' back-to-back-to-back trips to the Super Bowl does produce an extent of
+      follower growth, some of the most clear upward spikes in our data are tied
+      to these moments that are far greater than the game being played on the field. Whether it be celebrity relationships, high-profile player signings,
+      or viral media coverage, there are certain things on the internet that ultimately trump team success when it comes to the numbers that they are doing on social media. The Dallas Cowboys, historically one of Instagram's most-followed
+      teams, have kept massive audiences through brand power even during losing seasons ("America's Team").
+    </p>
+    <p>
+      This site presents our full research process: a literature review of prior work on
+      sports and social media, our data collection methodology, interactive visualizations
+      of our findings, and a conclusion that situates our results within the broader conversation
+      about fan engagement in the digital age.
+    </p>
+    <div style="margin-top: 14px;">
+      <span class="tag">NFL performance</span>
+      <span class="tag">Instagram growth</span>
+      <span class="tag">Fan engagement</span>
+      <span class="tag">Social media analytics</span>
+      <span class="tag">Sports branding</span>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2 class="section-title">About us</h2>
+  <div class="about-grid">
+    <div class="member-card">
+      <div class="avatar" style="background: rgba(59,130,246,0.15); color: #3b82f6;">AS</div>
+      <div class="member-name">Alex S.</div>
+      <div class="member-role">Data & Analysis</div>
+      <div class="member-desc">Built the Instagram follower dataset and ran correlation models between social growth and on-field performance.</div>
+    </div>
+    <div class="member-card">
+      <div class="avatar" style="background: rgba(34,197,94,0.15); color: #22c55e;">JM</div>
+      <div class="member-name">Jordan M.</div>
+      <div class="member-role">Research</div>
+      <div class="member-desc">Tracked cultural milestone events and mapped their timing relative to follower spikes across all 32 teams.</div>
+    </div>
+    <div class="member-card">
+      <div class="avatar" style="background: rgba(216,27,96,0.12); color: #d81b60;">RK</div>
+      <div class="member-name">Riley K.</div>
+      <div class="member-role">Web Development</div>
+      <div class="member-desc">Built the interactive charts and site structure using HTML, CSS, JavaScript, and Claude AI.</div>
+    </div>
+    <div class="member-card">
+      <div class="avatar" style="background: rgba(236,72,153,0.15); color: #ec4899;">CM</div>
+      <div class="member-name">Casey M.</div>
+      <div class="member-role">Narrative & Writing</div>
+      <div class="member-desc">Wrote the analysis and found the stories behind the numbers — especially the cultural crossover moments.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="nav-links-row">
+    <a href="literature.html" class="next-btn">Next: Literature Review →</a>
+  </div>
+</div>
+
+<div class="footer">
+  Capstone Project · Data sourced from Covers.com, Social Blade, and NFL.com · 2025
+</div>
+
+</body>
+</html>

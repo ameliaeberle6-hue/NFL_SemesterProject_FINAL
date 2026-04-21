@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NFL × Instagram | Methodology</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #fce4ec; --surface: #fff0f5; --surface2: #ffd6e7;
+    --border: rgba(180,0,60,0.15); --text: #2d0a1a; --muted: #a0506a;
+    --accent: #d81b60; --accent2: #001f5b;
+    --font-display: 'Bebas Neue', sans-serif; --font-body: 'DM Sans', sans-serif;
+    --radius: 10px; --radius-lg: 16px;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-body); background: var(--bg); color: var(--text); min-height: 100vh; font-size: 15px; line-height: 1.6; }
+  .nav { position: sticky; top: 0; z-index: 100; background: rgba(252,228,236,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 6px; padding: 10px 20px; flex-wrap: wrap; }
+  .nav-logo { font-family: var(--font-display); font-size: 22px; letter-spacing: 1px; color: var(--accent2); margin-right: 12px; flex-shrink: 0; display: flex; align-items: center; gap: 8px; text-decoration: none; }
+  .nav-logo img { height: 28px; width: auto; }
+  .nav-link { padding: 5px 14px; border-radius: 6px; border: 1px solid var(--border); background: transparent; color: var(--muted); font-size: 13px; font-family: var(--font-body); cursor: pointer; transition: all 0.15s; white-space: nowrap; text-decoration: none; display: inline-block; }
+  .nav-link:hover { background: var(--surface2); color: var(--text); }
+  .nav-link.active { background: var(--accent2); color: #fff; border-color: var(--accent2); font-weight: 600; }
+  .page-wrap { max-width: 820px; margin: 0 auto; padding: 48px 24px 64px; }
+  .page-eyebrow { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .page-title { font-family: var(--font-display); font-size: clamp(40px, 8vw, 68px); line-height: 0.95; letter-spacing: 2px; color: var(--text); margin-bottom: 16px; }
+  .page-title span { color: var(--accent2); }
+  .page-subtitle { font-size: 15px; color: var(--muted); margin-bottom: 36px; line-height: 1.7; max-width: 620px; }
+  .nfl-stripe { display: flex; height: 4px; border-radius: 3px; overflow: hidden; margin-bottom: 36px; gap: 2px; }
+  .nfl-stripe span { flex: 1; border-radius: 1px; }
+  .section-label { font-family: var(--font-display); font-size: 24px; letter-spacing: 1px; color: var(--text); margin: 40px 0 14px; border-left: 4px solid var(--accent); padding-left: 14px; }
+  .prose { color: var(--muted); line-height: 1.85; font-size: 15px; margin-bottom: 16px; }
+  .prose strong { color: var(--text); font-weight: 600; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px 28px; margin-bottom: 20px; }
+  .card-label { font-family: var(--font-display); font-size: 16px; letter-spacing: 1px; color: var(--accent2); margin-bottom: 10px; }
+  .step-list { list-style: none; padding: 0; margin: 0; }
+  .step-list li { display: flex; gap: 16px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--border); }
+  .step-list li:last-child { border-bottom: none; }
+  .step-num { font-family: var(--font-display); font-size: 28px; color: var(--accent); line-height: 1; flex-shrink: 0; width: 32px; }
+  .step-text { color: var(--muted); font-size: 14px; line-height: 1.7; }
+  .step-text strong { color: var(--text); font-weight: 600; display: block; margin-bottom: 3px; }
+  .ai-card { background: rgba(216,27,96,0.05); border: 1px solid rgba(216,27,96,0.2); border-radius: var(--radius-lg); padding: 24px 28px; margin-bottom: 20px; }
+  .ai-card-label { font-family: var(--font-display); font-size: 16px; letter-spacing: 1px; color: var(--accent); margin-bottom: 10px; }
+  hr { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
+  .nav-btns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 48px; }
+  .btn { display: inline-block; padding: 10px 22px; border-radius: var(--radius); font-size: 13px; font-weight: 600; text-decoration: none; transition: opacity 0.15s; }
+  .btn-primary { background: var(--accent2); color: #fff; }
+  .btn-secondary { background: transparent; border: 1px solid var(--border); color: var(--muted); }
+  .btn:hover { opacity: 0.8; }
+  .footer { border-top: 1px solid var(--border); padding: 20px 24px; text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo">
+    <img src="https://upload.wikimedia.org/wikipedia/en/a/a2/National_Football_League_logo.svg" alt="NFL" onerror="this.style.display='none'">
+    NFL × IG
+  </a>
+  <a href="index.html" class="nav-link">Home</a>
+  <a href="literature.html" class="nav-link">Literature Review</a>
+  <a href="method.html" class="nav-link active">Methodology</a>
+  <a href="findings.html" class="nav-link">Findings</a>
+  <a href="conclusion.html" class="nav-link">Conclusion</a>
+  <a href="works-cited.html" class="nav-link">Works Cited</a>
+</nav>
+
+<div class="page-wrap">
+  <p class="page-eyebrow">Section 02</p>
+  <h1 class="page-title">Research<br><span>Methodology</span></h1>
+  <p class="page-subtitle">
+    A step-by-step account of how we collected, organized, and analyzed data to answer our
+    research question: does NFL team performance correlate with Instagram follower growth?
+  </p>
+  <div class="nfl-stripe">
+    <span style="background:#E31837;"></span><span style="background:#003594;"></span>
+    <span style="background:#FB4F14;"></span><span style="background:#203731;"></span>
+    <span style="background:#AA0000;"></span><span style="background:#004C54;"></span>
+    <span style="background:#0047AB;"></span><span style="background:#002244;"></span>
+  </div>
+
+  <h2 class="section-label">Research Question</h2>
+  <p class="prose">
+    Our central question is: <strong>Does NFL team performance correlate with Instagram follower growth?</strong>
+    This is a quantitative research question — it asks whether two measurable variables move
+    together in a statistically meaningful way. To answer it, we needed two parallel datasets:
+    one tracking each team's regular season win/loss record year by year, and one tracking
+    each team's Instagram follower count over the same period.
+  </p>
+
+  <h2 class="section-label">Data Collection</h2>
+  <div class="card">
+    <ul class="step-list">
+      <li>
+        <span class="step-num">01</span>
+        <div class="step-text">
+          <strong>NFL Win/Loss Records — Covers.com</strong>
+          We collected regular season win totals for all 32 NFL teams from 2012 through 2024
+          using Covers.com's historical standings pages (e.g.,
+          <a href="https://www.covers.com/sport/football/nfl/standings/2012-2013" style="color:var(--accent2);" target="_blank">covers.com/sport/football/nfl/standings/2012-2013</a>).
+          For each season, we recorded each team's regular season win total (out of 16 games
+          for 2012–2020, and 17 games from 2021 onward). Data was recorded manually into a
+          shared spreadsheet.
+        </div>
+      </li>
+      <li>
+        <span class="step-num">02</span>
+        <div class="step-text">
+          <strong>Instagram Follower Counts — Social Blade</strong>
+          Instagram follower counts were collected using Social Blade
+          (<a href="https://socialblade.com" style="color:var(--accent2);" target="_blank">socialblade.com</a>),
+          a third-party analytics platform that tracks historical social media statistics.
+          For each of the 32 NFL teams, we looked up the official team Instagram account
+          and recorded approximate follower counts at the end of each calendar year from
+          2012 to 2024. Where exact end-of-year figures were unavailable, we used the
+          closest available data point and noted this in our records.
+        </div>
+      </li>
+      <li>
+        <span class="step-num">03</span>
+        <div class="step-text">
+          <strong>Cultural Event Annotation</strong>
+          In addition to our two primary variables, we manually compiled a list of notable
+          off-field events that could plausibly explain outlier follower spikes — including
+          high-profile player signings, celebrity relationships with players, Super Bowl wins,
+          and viral media moments. These were not used in our quantitative analysis but are
+          flagged in our visualizations to provide qualitative context.
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <h2 class="section-label">Scope & Limitations</h2>
+  <p class="prose">
+    To keep the project manageable, we made several deliberate scoping decisions.
+    First, we focused only on regular season win totals rather than more granular
+    performance metrics (e.g., points scored, margin of victory, playoff outcomes).
+    Second, we used year-end follower snapshots rather than tracking follower counts
+    on a weekly or monthly basis. Third, because Social Blade's historical data has
+    some gaps for accounts prior to 2015, follower counts for the earliest years in
+    our dataset carry more uncertainty than later years.
+  </p>
+  <p class="prose">
+    We also limited our analysis to the official team Instagram accounts, excluding
+    player accounts, league accounts, and fan pages. This was necessary to ensure
+    we were measuring team-level brand growth rather than individual athlete popularity.
+  </p>
+
+  <h2 class="section-label">Analysis Approach</h2>
+  <p class="prose">
+    Our analysis is primarily <strong>quantitative</strong> — we compared win totals to year-over-year
+    follower growth rates for each team and looked for patterns across the league.
+    We also conducted a more <strong>qualitative</strong> layer of analysis by identifying teams whose
+    follower growth significantly outpaced or underperformed their win/loss record,
+    then researching what off-field factors might explain those anomalies.
+  </p>
+  <p class="prose">
+    Findings are presented through interactive line graphs and bar charts built using
+    Chart.js, allowing readers to explore individual team trends and compare teams
+    side by side. Gold-highlighted data points on the charts indicate years with
+    confirmed cultural or media events that may have influenced follower counts.
+  </p>
+
+  <h2 class="section-label">AI Tool Usage</h2>
+  <div class="ai-card">
+    <div class="ai-card-label">Reflection on AI in Our Process</div>
+    <p class="prose" style="margin-bottom:12px;">
+      We used two AI tools over the course of this project: <strong>ChatGPT</strong> (OpenAI) and
+      <strong>Claude</strong> (Anthropic). It is important to be transparent about what we delegated
+      to these tools and what we chose to do ourselves.
+    </p>
+    <p class="prose" style="margin-bottom:12px;">
+      <strong>Claude</strong> was used extensively to build the website you are currently reading.
+      We described the structure we wanted — a multi-page site with interactive charts,
+      a pink color scheme, NFL team colors, and the official NFL logo — and Claude
+      generated the HTML, CSS, and JavaScript code. We then reviewed the output,
+      tested it in a browser, and requested revisions iteratively. We made deliberate
+      choices about what to ask for versus what to specify ourselves: for example,
+      we chose the color scheme and overall structure, while Claude handled the
+      technical implementation of Chart.js and the responsive layout.
+    </p>
+    <p class="prose" style="margin-bottom:12px;">
+      <strong>ChatGPT</strong> was used during the early research and brainstorming phase to help
+      us identify relevant academic literature on sports and social media and to
+      think through how to frame our research question. We did not use it to
+      generate data or write final prose that appears in this site.
+    </p>
+    <p class="prose" style="margin-bottom:0;">
+      Using these tools raised important questions for us about authorship, delegation,
+      and learning. Building the website with Claude was faster than learning web
+      development from scratch, but it also meant we sometimes received code we did
+      not fully understand. This required us to ask follow-up questions, test
+      carefully, and develop enough literacy to evaluate the output critically.
+      The data collection, analysis, and written content are entirely our own work.
+      The AI tools served as a technical assistant for implementation — not a
+      replacement for research or original thinking.
+    </p>
+  </div>
+
+  <hr>
+  <div class="nav-btns">
+    <a href="literature.html" class="btn btn-secondary">← Literature Review</a>
+    <a href="findings.html" class="btn btn-primary">Next: Findings →</a>
+  </div>
+</div>
+
+<div class="footer">
+  Capstone Project · Data sourced from Covers.com, Social Blade, and NFL.com · 2025
+</div>
+
+</body>
+</html>

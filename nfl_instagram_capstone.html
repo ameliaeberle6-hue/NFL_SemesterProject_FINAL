@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NFL × Instagram | Capstone Project</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  /* =============================================
+     GLOBAL RESET & VARIABLES
+  ============================================= */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #fce4ec;
+    --surface:   #fff0f5;
+    --surface2:  #ffd6e7;
+    --border:    rgba(180,0,60,0.15);
+    --text:      #2d0a1a;
+    --muted:     #a0506a;
+    --accent:    #d81b60;
+    --accent2:   #001f5b;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body:    'DM Sans', sans-serif;
+    --radius:    10px;
+    --radius-lg: 16px;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* =============================================
+     NAVIGATION
+  ============================================= */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(252,228,236,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    flex-wrap: wrap;
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: var(--accent2);
+    margin-right: 12px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .nav-logo img { height: 28px; width: auto; }
+  .nav-btn {
+    padding: 5px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    font-size: 13px;
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .nav-btn:hover { background: var(--surface2); color: var(--text); }
+  .nav-btn.active { background: var(--accent2); color: #fff; border-color: var(--accent2); font-weight: 600; }
+
+  /* =============================================
+     PAGES
+  ============================================= */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* =============================================
+     HOME PAGE
+  ============================================= */
+  .hero {
+    padding: 64px 24px 48px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .nfl-stripe {
+    display: flex;
+    height: 5px;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 28px;
+    gap: 2px;
+  }
+  .nfl-stripe span { flex: 1; border-radius: 1px; }
+  .hero-eyebrow {
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(52px, 10vw, 88px);
+    line-height: 0.95;
+    letter-spacing: 2px;
+    color: var(--text);
+    margin-bottom: 20px;
+  }
+  .hero-title span { color: var(--accent2); }
+  .hero-subtitle {
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 580px;
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+  .stats-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    min-width: 120px;
+    position: relative;
+    overflow: hidden;
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .stat-card:nth-child(1)::before { background: #E31837; }
+  .stat-card:nth-child(2)::before { background: #003594; }
+  .stat-card:nth-child(3)::before { background: #203731; }
+  .stat-card:nth-child(4)::before { background: #FB4F14; }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 36px;
+    color: var(--accent2);
+    line-height: 1;
+  }
+  .stat-lbl { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  .section {
+    max-width: 860px;
+    margin: 0 auto 32px;
+    padding: 0 24px;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 28px;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    color: var(--text);
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .card p {
+    color: var(--muted);
+    line-height: 1.75;
+    margin-bottom: 10px;
+  }
+  .card p:last-child { margin-bottom: 0; }
+  .tag {
+    display: inline-block;
+    background: rgba(216,27,96,0.1);
+    color: var(--accent);
+    border: 1px solid rgba(216,27,96,0.25);
+    border-radius: 100px;
+    font-size: 11px;
+    padding: 3px 10px;
+    margin: 3px;
+    font-weight: 500;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .member-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+  }
+  .avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display);
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  .member-name { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+  .member-role { font-size: 12px; color: var(--accent); margin-bottom: 6px; }
+  .member-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .team-chip {
+    border-radius: var(--radius);
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: all 0.18s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid transparent;
+  }
+  .team-chip:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+  }
+  .team-abbr-badge {
+    font-family: var(--font-display);
+    font-size: 18px;
+    letter-spacing: 1px;
+    line-height: 1;
+    flex-shrink: 0;
+    width: 38px;
+    text-align: center;
+  }
+  .team-chip-name { font-size: 12px; font-weight: 600; }
+  .team-chip-conf { font-size: 10px; opacity: 0.7; margin-top: 1px; }
+
+  /* =============================================
+     COMPARE PAGE
+  ============================================= */
+  .compare-header {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 24px;
+  }
+  .filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+  .filter-btn {
+    padding: 4px 14px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    font-size: 12px;
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .filter-btn:hover { color: var(--text); }
+  .filter-btn.active { background: var(--accent2); color: #fff; border-color: var(--accent2); font-weight: 600; }
+
+  .legend-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: var(--muted);
+    cursor: pointer;
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    transition: all 0.1s;
+    user-select: none;
+  }
+  .legend-item:hover { border-color: var(--border); background: var(--surface2); }
+  .legend-item.hidden { opacity: 0.3; }
+  .legend-swatch { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+  .chart-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px 40px;
+  }
+  .chart-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+  }
+  .chart-wrap { position: relative; width: 100%; }
+
+  /* =============================================
+     TEAM PAGE
+  ============================================= */
+  .team-page-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 32px 24px;
+  }
+  .back-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: var(--font-body);
+    font-size: 13px;
+    padding: 5px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 24px;
+    transition: all 0.15s;
+  }
+  .back-btn:hover { color: var(--text); background: var(--surface2); }
+  .team-hero {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .team-badge {
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display);
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .team-page-name {
+    font-family: var(--font-display);
+    font-size: 40px;
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+  .team-page-conf { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+  .moment-pill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    background: rgba(216,27,96,0.06);
+    border: 1px solid rgba(216,27,96,0.18);
+    border-radius: var(--radius);
+    margin-top: 8px;
+  }
+  .moment-year {
+    font-family: var(--font-display);
+    font-size: 20px;
+    color: var(--accent);
+    min-width: 48px;
+  }
+  .moment-text { font-size: 13px; color: var(--text); }
+
+  /* =============================================
+     FOOTER
+  ============================================= */
+  .footer {
+    max-width: 860px;
+    margin: 40px auto 0;
+    padding: 20px 24px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== NAVIGATION ========== -->
+<nav class="nav" id="mainNav">
+  <span class="nav-logo">NFL × IG</span>
+  <!-- Nav buttons injected by JS -->
+</nav>
+
+<!-- ========== HOME PAGE ========== -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div style="display:flex; align-items:center; gap:14px; margin-bottom:20px;">
+      <img src="https://upload.wikimedia.org/wikipedia/en/a/a2/National_Football_League_logo.svg" alt="NFL Logo" style="height:64px; width:auto;" onerror="this.style.display='none'">
+      <p class="hero-eyebrow" style="margin-bottom:0;">Capstone Project · 2025</p>
+    </div>
+    <!-- EDIT: Change the title below -->
+    <h1 class="hero-title">NFL<br><span>× Instagram</span></h1>
+    <!-- EDIT: Change the subtitle below -->
+    <p class="hero-subtitle">
+      Does winning drive followers — or do viral moments off the field matter more?
+      We tracked all 32 NFL teams' Instagram growth alongside their win/loss records
+      to find out what really moves the needle.
+    </p>
+    <div class="nfl-stripe">
+      <span style="background:#E31837;"></span>
+      <span style="background:#003594;"></span>
+      <span style="background:#FB4F14;"></span>
+      <span style="background:#203731;"></span>
+      <span style="background:#AA0000;"></span>
+      <span style="background:#004C54;"></span>
+      <span style="background:#0047AB;"></span>
+      <span style="background:#D50A0A;"></span>
+      <span style="background:#a5acaf;"></span>
+      <span style="background:#c83803;"></span>
+      <span style="background:#0076B6;"></span>
+      <span style="background:#d3bc8d;"></span>
+      <span style="background:#002244;"></span>
+    </div>
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-num">32</div><div class="stat-lbl">NFL teams</div></div>
+      <div class="stat-card"><div class="stat-num">13</div><div class="stat-lbl">seasons tracked</div></div>
+      <div class="stat-card"><div class="stat-num">12+</div><div class="stat-lbl">cultural moments</div></div>
+      <!-- EDIT: Add more stat cards here if you want -->
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">Why this topic?</h2>
+    <div class="card">
+      <!-- EDIT: Change the body text below -->
+      <p>
+        Social media has fundamentally changed how fans engage with sports teams.
+        Instagram follower counts aren't just vanity metrics — they reflect cultural
+        moments, viral stories, and the expanding global reach of the NFL.
+      </p>
+      <p>
+        We wanted to understand: do championship runs drive Instagram growth?
+        Or do off-field stories — like a celebrity relationship — matter just as much?
+        Some of the most dramatic follower spikes in our data have nothing to do
+        with the win/loss record.
+      </p>
+      <p>
+        Taylor Swift attending Kansas City Chiefs games in 2023 is the most
+        striking example, but Simone Biles marrying Jonathan Owens, Brady joining
+        Tampa Bay, and Mahomes' MVP campaigns each tell their own story.
+      </p>
+      <div style="margin-top: 14px;">
+        <!-- EDIT: Add or remove tags here -->
+        <span class="tag">Taylor Swift × Travis Kelce (2023)</span>
+        <span class="tag">Simone Biles × Jonathan Owens (2023)</span>
+        <span class="tag">Tom Brady joins Bucs (2021)</span>
+        <span class="tag">Mahomes MVP era</span>
+        <span class="tag">Detroit Lions revival (2024)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">About us</h2>
+    <div class="about-grid">
+      <!-- EDIT: Change names, roles, and descriptions below -->
+      <div class="member-card">
+        <div class="avatar" style="background: rgba(59,130,246,0.15); color: #3b82f6;">AS</div>
+        <div class="member-name">Alex S.</div>
+        <div class="member-role">Data & Analysis</div>
+        <div class="member-desc">Built the Instagram follower dataset and ran correlation models between social growth and on-field performance.</div>
+      </div>
+      <div class="member-card">
+        <div class="avatar" style="background: rgba(34,197,94,0.15); color: #22c55e;">JM</div>
+        <div class="member-name">Jordan M.</div>
+        <div class="member-role">Research</div>
+        <div class="member-desc">Tracked cultural milestone events and mapped their timing to follower spikes across all 32 teams.</div>
+      </div>
+      <div class="member-card">
+        <div class="avatar" style="background: rgba(232,200,74,0.15); color: #e8c84a;">RK</div>
+        <div class="member-name">Riley K.</div>
+        <div class="member-role">Web Development</div>
+        <div class="member-desc">Built the interactive charts and site. Big football fan who wanted to merge data science with sports.</div>
+      </div>
+      <div class="member-card">
+        <div class="avatar" style="background: rgba(236,72,153,0.15); color: #ec4899;">CM</div>
+        <div class="member-name">Casey M.</div>
+        <div class="member-role">Narrative & Writing</div>
+        <div class="member-desc">Wrote the analysis and found the stories behind the numbers — especially the cultural crossover moments.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">Explore by team</h2>
+    <div class="team-grid" id="homeTeamGrid"></div>
+  </div>
+
+  <div class="footer">
+    Capstone Project · Data sourced from NFL.com, Instagram, and public records · 2025
+  </div>
+</div>
+
+<!-- ========== COMPARE PAGE ========== -->
+<div class="page" id="page-compare">
+  <div class="compare-header">
+    <h1 style="font-family: var(--font-display); font-size: 40px; letter-spacing: 1px; margin-bottom: 6px;">All teams</h1>
+    <p style="color: var(--muted); margin-bottom: 20px;">Instagram followers (millions) 2012–2024. Click a team in the legend to show or hide it.</p>
+    <div class="filter-row" id="confFilter"></div>
+    <div class="legend-wrap" id="compareLegend"></div>
+  </div>
+  <div class="chart-container">
+    <div class="chart-card">
+      <div class="chart-wrap" style="height: 420px;">
+        <canvas id="compareChart" role="img" aria-label="Line chart comparing NFL team Instagram followers 2012-2024">NFL team Instagram follower comparison 2012 to 2024.</canvas>
+      </div>
+    </div>
+    <p style="font-size: 11px; color: var(--muted); margin-top: 10px;">
+      * Follower figures are estimates based on publicly available data. Replace with your real data in the TEAMS array in the &lt;script&gt; section.
+    </p>
+  </div>
+</div>
+
+<!-- ========== TEAM PAGE ========== -->
+<div class="page" id="page-team">
+  <div class="team-page-inner" id="teamPageInner"></div>
+</div>
+
+
+<!-- ========== DATA & LOGIC ========== -->
+<script>
+// =======================================================
+//  DATA — Edit this section with your real numbers!
+// =======================================================
+
+const YEARS = [2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024];
+
+// CULTURAL MOMENTS — add any event here
+// year: the season year it happened
+// label: short description shown in tooltips
+// teams: array of team names it affected
+const EVENTS = [
+  { year: 2023, label: "Taylor Swift & Travis Kelce relationship goes viral", teams: ["Kansas City Chiefs"] },
+  { year: 2023, label: "Simone Biles & Jonathan Owens married", teams: ["Green Bay Packers"] },
+  { year: 2021, label: "Tom Brady signs with Tampa Bay", teams: ["Tampa Bay Buccaneers"] },
+  { year: 2022, label: "Odell Beckham Jr. joins Rams", teams: ["Los Angeles Rams"] },
+  { year: 2020, label: "Patrick Mahomes wins Super Bowl MVP", teams: ["Kansas City Chiefs"] },
+  { year: 2016, label: "Super Bowl 50 win", teams: ["Denver Broncos"] },
+  { year: 2024, label: "Lions historic season / resurgence", teams: ["Detroit Lions"] },
+  { year: 2019, label: "Saints NFC Championship controversy", teams: ["New Orleans Saints"] },
+];
+
+// TEAMS — add all 32 teams here!
+// followers: Instagram followers in millions per year (must match YEARS array length)
+// wins: regular season wins per year (must match YEARS array length)
+const TEAMS = [
+  {
+    name: "Kansas City Chiefs",
+    abbr: "KC",
+    conf: "AFC",
+    div: "West",
+    color: "#E31837",
+    followers: [1.2, 1.5, 1.8, 2.1, 2.5, 3.0, 3.6, 4.1, 4.8, 6.2, 8.5, 14.2, 17.8],
+    wins:      [11,  11,   9,  11,  12,  10,  12,  12,  14,  13,  14,  11,  15],
+  },
+  {
+    name: "Dallas Cowboys",
+    abbr: "DAL",
+    conf: "NFC",
+    div: "East",
+    color: "#003594",
+    followers: [4.5, 5.2, 5.9, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0, 9.8, 10.5, 11.2, 12.1],
+    wins:      [8,   8,  12,   4,  13,   9,  10,   8,   6,  12,  12,  10,   7],
+  },
+  {
+    name: "New England Patriots",
+    abbr: "NE",
+    conf: "AFC",
+    div: "East",
+    color: "#002244",
+    followers: [3.8, 4.3, 5.0, 5.6, 6.2, 6.8, 7.2, 7.5, 7.6, 7.4, 7.1, 6.8, 6.5],
+    wins:      [12,  12,  12,  12,  14,  13,  11,  12,   7,  10,   8,   4,   8],
+  },
+  {
+    name: "Green Bay Packers",
+    abbr: "GB",
+    conf: "NFC",
+    div: "North",
+    color: "#203731",
+    followers: [2.8, 3.1, 3.4, 3.7, 4.0, 4.3, 4.6, 4.9, 5.3, 5.8, 6.4, 7.1, 7.6],
+    wins:      [11,   8,  12,  10,  10,   7,   6,  13,  13,  13,   8,   9,  11],
+  },
+  {
+    name: "San Francisco 49ers",
+    abbr: "SF",
+    conf: "NFC",
+    div: "West",
+    color: "#AA0000",
+    followers: [1.5, 1.7, 2.0, 2.3, 2.5, 2.6, 2.8, 3.2, 3.8, 4.5, 5.5, 6.8, 7.9],
+    wins:      [11,  12,   8,   5,   2,   6,   4,  13,   6,  10,  13,  12,  13],
+  },
+  {
+    name: "Philadelphia Eagles",
+    abbr: "PHI",
+    conf: "NFC",
+    div: "East",
+    color: "#004C54",
+    followers: [1.4, 1.6, 1.9, 2.2, 2.5, 3.0, 4.2, 4.8, 5.0, 5.4, 6.0, 7.2, 7.8],
+    wins:      [4,  10,  10,   7,   7,  13,   9,   9,   4,   9,  14,  11,  14],
+  },
+  {
+    name: "Los Angeles Rams",
+    abbr: "LAR",
+    conf: "NFC",
+    div: "West",
+    color: "#0047AB",
+    followers: [0.8, 0.9, 1.0, 1.1, 1.5, 2.0, 2.8, 3.5, 4.2, 5.0, 6.5, 5.8, 6.0],
+    wins:      [7,   7,   6,   7,   4,  11,  13,   9,  10,  12,   5,   5,  10],
+  },
+  {
+    name: "Tampa Bay Buccaneers",
+    abbr: "TB",
+    conf: "NFC",
+    div: "South",
+    color: "#D50A0A",
+    followers: [0.6, 0.7, 0.8, 0.9, 1.0, 1.2, 1.4, 1.8, 3.8, 5.2, 5.8, 5.5, 5.2],
+    wins:      [7,   4,   2,   6,   9,   5,   5,   7,  11,  13,   8,   9,  10],
+  },
+  {
+    name: "Las Vegas Raiders",
+    abbr: "LV",
+    conf: "AFC",
+    div: "West",
+    color: "#a5acaf",
+    followers: [2.0, 2.1, 2.2, 2.3, 2.5, 2.7, 2.9, 3.0, 3.1, 3.3, 3.6, 3.9, 4.1],
+    wins:      [8,   4,   3,   7,  12,   6,   4,   7,   8,  10,   6,   7,   8],
+  },
+  {
+    name: "Chicago Bears",
+    abbr: "CHI",
+    conf: "NFC",
+    div: "North",
+    color: "#c83803",
+    followers: [2.1, 2.2, 2.3, 2.5, 2.6, 2.8, 2.9, 3.0, 3.1, 3.2, 3.4, 3.7, 4.0],
+    wins:      [10,   8,   5,   6,   3,   5,  12,   8,   8,   6,   3,   7,   5],
+  },
+  {
+    name: "Denver Broncos",
+    abbr: "DEN",
+    conf: "AFC",
+    div: "West",
+    color: "#FB4F14",
+    followers: [1.6, 1.8, 2.2, 2.8, 3.5, 3.2, 2.9, 2.7, 2.6, 2.5, 2.4, 2.3, 2.5],
+    wins:      [13,  13,  12,  12,   9,   5,   6,   7,   5,   7,   5,   8,   7],
+  },
+  {
+    name: "New Orleans Saints",
+    abbr: "NO",
+    conf: "NFC",
+    div: "South",
+    color: "#d3bc8d",
+    followers: [1.3, 1.4, 1.6, 1.8, 2.0, 2.2, 2.5, 3.0, 2.8, 2.9, 3.0, 3.1, 3.2],
+    wins:      [7,  11,   7,   7,   7,  11,  13,  13,  12,   9,   9,   7,   5],
+  },
+  {
+    name: "Detroit Lions",
+    abbr: "DET",
+    conf: "NFC",
+    div: "North",
+    color: "#0076B6",
+    followers: [0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.5, 1.8, 2.8, 4.2],
+    wins:      [4,   7,  11,   7,   9,   9,   6,   3,   5,   3,   9,  12,  15],
+  },
+  // ADD MORE TEAMS HERE — copy/paste the block above and change the values
+];
+
+// =======================================================
+//  APP STATE
+// =======================================================
+let currentPage  = 'home';
+let currentTeam  = null;
+let hiddenTeams  = new Set();
+let confFilter   = 'All';
+let allCharts    = [];
+
+// =======================================================
+//  RENDER ENGINE
+// =======================================================
+function destroyCharts() {
+  allCharts.forEach(c => { try { c.destroy(); } catch(e){} });
+  allCharts = [];
+}
+
+function render() {
+  destroyCharts();
+  renderNav();
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  if (currentPage === 'home')    renderHome();
+  if (currentPage === 'compare') renderCompare();
+  if (currentPage === 'team')    renderTeam();
+}
+
+// =======================================================
+//  NAV
+// =======================================================
+function renderNav() {
+  const nav = document.getElementById('mainNav');
+  nav.innerHTML = `<span class="nav-logo"><img src="https://upload.wikimedia.org/wikipedia/en/a/a2/National_Football_League_logo.svg" alt="NFL" onerror="this.style.display='none'"> NFL × IG</span>
+    <button class="nav-btn ${currentPage==='home'?'active':''}" onclick="goPage('home')">Home</button>
+    <button class="nav-btn ${currentPage==='compare'?'active':''}" onclick="goPage('compare')">All Teams</button>
+    ${TEAMS.map(t => `<button class="nav-btn ${currentPage==='team'&&currentTeam===t.name?'active':''}" onclick="goTeam('${esc(t.name)}')"
+      style="${currentPage==='team'&&currentTeam===t.name?`background:${t.color};color:#fff;border-color:${t.color};`:''}">
+      <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${t.color};margin-right:4px;vertical-align:middle;"></span>${t.abbr}
+    </button>`).join('')}`;
+}
+
+// =======================================================
+//  HOME
+// =======================================================
+function renderHome() {
+  document.getElementById('page-home').classList.add('active');
+  const grid = document.getElementById('homeTeamGrid');
+  grid.innerHTML = TEAMS.map(t => {
+    const hex = t.color.replace('#','');
+    const r = parseInt(hex.slice(0,2),16), g = parseInt(hex.slice(2,4),16), b = parseInt(hex.slice(4,6),16);
+    const brightness = (r*299 + g*587 + b*114) / 1000;
+    const textColor = brightness > 128 ? '#111' : '#fff';
+    return `
+    <div class="team-chip" onclick="goTeam('${esc(t.name)}')"
+      style="background: linear-gradient(135deg, ${t.color}ee, ${t.color}99); border-color: ${t.color}66; color: ${textColor};">
+      <span class="team-abbr-badge">${t.abbr}</span>
+      <div>
+        <div class="team-chip-name">${t.name}</div>
+        <div class="team-chip-conf">${t.conf} · ${t.div}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// =======================================================
+//  COMPARE
+// =======================================================
+function renderCompare() {
+  document.getElementById('page-compare').classList.add('active');
+
+  // Conf filter buttons
+  const cfEl = document.getElementById('confFilter');
+  cfEl.innerHTML = ['All','AFC','NFC'].map(c =>
+    `<button class="filter-btn ${confFilter===c?'active':''}" onclick="setConf('${c}')">${c}</button>`
+  ).join('');
+
+  const filtered = confFilter === 'All' ? TEAMS : TEAMS.filter(t => t.conf === confFilter);
+
+  // Legend
+  const legEl = document.getElementById('compareLegend');
+  legEl.innerHTML = filtered.map(t => `
+    <span class="legend-item ${hiddenTeams.has(t.name)?'hidden':''}" onclick="toggleTeam('${esc(t.name)}')">
+      <span class="legend-swatch" style="background:${t.color};"></span>${t.abbr}
+    </span>`).join('');
+
+  // Chart
+  const canvas = document.getElementById('compareChart');
+  const datasets = filtered.map(t => ({
+    label: t.name,
+    data: t.followers,
+    borderColor: t.color,
+    backgroundColor: t.color + '18',
+    tension: 0.35,
+    pointRadius: 3,
+    pointHoverRadius: 6,
+    borderWidth: 2,
+    hidden: hiddenTeams.has(t.name),
+  }));
+
+  const chart = new Chart(canvas, {
+    type: 'line',
+    data: { labels: YEARS, datasets },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#fff0f5',
+          borderColor: 'rgba(180,0,60,0.2)',
+          borderWidth: 1,
+          titleColor: '#d81b60',
+          bodyColor: '#a0506a',
+          callbacks: {
+            title: items => `Season ${items[0].label}`,
+            label: item => {
+              const yr = YEARS[item.dataIndex];
+              const ev = EVENTS.find(e => e.year === yr && e.teams.includes(item.dataset.label));
+              const lines = [`${item.dataset.label}: ${item.raw.toFixed(1)}M followers`];
+              if (ev) lines.push(`★ ${ev.label}`);
+              return lines;
+            }
+          }
+        }
+      },
+      scales: {
+        y: {
+          ticks: { color: '#a0506a', callback: v => v + 'M' },
+          grid: { color: 'rgba(180,0,60,0.08)' },
+          title: { display: true, text: 'Followers (millions)', color: '#a0506a', font: { size: 11 } }
+        },
+        x: {
+          ticks: { color: '#a0506a' },
+          grid: { color: 'rgba(180,0,60,0.08)' }
+        }
+      }
+    }
+  });
+  allCharts.push(chart);
+}
+
+// =======================================================
+//  TEAM PAGE
+// =======================================================
+function renderTeam() {
+  document.getElementById('page-team').classList.add('active');
+  const team = TEAMS.find(t => t.name === currentTeam);
+  if (!team) return;
+
+  const events = EVENTS.filter(e => e.teams.includes(team.name));
+  const latest = team.followers[team.followers.length - 1];
+  const bestWins = Math.max(...team.wins);
+  const bestYear = YEARS[team.wins.indexOf(bestWins)];
+
+  document.getElementById('teamPageInner').innerHTML = `
+    <button class="back-btn" onclick="goPage('compare')">← All teams</button>
+    <div class="team-hero">
+      <div class="team-badge" style="background:${team.color}22; color:${team.color};">${team.abbr}</div>
+      <div>
+        <div class="team-page-name">${team.name}</div>
+        <div class="team-page-conf">${team.conf} · ${team.div}</div>
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-num" style="color:${team.color};">${latest.toFixed(1)}M</div><div class="stat-lbl">2024 followers</div></div>
+      <div class="stat-card"><div class="stat-num">${bestWins}</div><div class="stat-lbl">best season wins (${bestYear})</div></div>
+      <div class="stat-card"><div class="stat-num">${events.length}</div><div class="stat-lbl">key moments</div></div>
+    </div>
+
+    ${events.length > 0 ? `
+    <div class="card" style="border-left: 3px solid ${team.color}; border-radius: 0 ${getComputedStyle(document.documentElement).getPropertyValue('--radius-lg')} ${getComputedStyle(document.documentElement).getPropertyValue('--radius-lg')} 0; margin-bottom: 20px;">
+      <div style="font-family: var(--font-display); font-size: 20px; margin-bottom: 8px; letter-spacing: 1px;">Key moments</div>
+      ${events.map(e => `<div class="moment-pill">
+        <span class="moment-year">${e.year}</span>
+        <span class="moment-text">${e.label}</span>
+      </div>`).join('')}
+    </div>` : ''}
+
+    <div class="card" style="margin-bottom: 20px;">
+      <div style="font-family: var(--font-display); font-size: 20px; margin-bottom: 4px; letter-spacing: 1px;">Instagram followers over time</div>
+      <div style="font-size: 12px; color: var(--muted); margin-bottom: 14px;">Hover points for details. Gold dots = cultural moments.</div>
+      <div class="chart-wrap" style="height: 280px;">
+        <canvas id="followerChart" role="img" aria-label="${team.name} Instagram followers 2012-2024">${team.name} Instagram followers 2012-2024.</canvas>
+      </div>
+    </div>
+
+    <div class="card">
+      <div style="font-family: var(--font-display); font-size: 20px; margin-bottom: 4px; letter-spacing: 1px;">Win / loss record by season</div>
+      <div style="font-size: 12px; color: var(--muted); margin-bottom: 14px;">Regular season wins per year. Gold bars = seasons with notable moments.</div>
+      <div class="chart-wrap" style="height: 240px;">
+        <canvas id="winsChart" role="img" aria-label="${team.name} wins per season 2012-2024">${team.name} wins per season 2012-2024.</canvas>
+      </div>
+    </div>
+  `;
+
+  buildTeamCharts(team);
+}
+
+function buildTeamCharts(team) {
+  const events = EVENTS.filter(e => e.teams.includes(team.name));
+  const isEvent = y => events.some(e => e.year === y);
+
+  const tooltipDefaults = {
+    backgroundColor: '#fff0f5',
+    borderColor: 'rgba(180,0,60,0.2)',
+    borderWidth: 1,
+    titleColor: '#d81b60',
+    bodyColor: '#a0506a',
+  };
+
+  // Follower line chart
+  const fc = document.getElementById('followerChart');
+  if (fc) {
+    const c1 = new Chart(fc, {
+      type: 'line',
+      data: {
+        labels: YEARS,
+        datasets: [{
+          label: 'Followers',
+          data: team.followers,
+          borderColor: team.color,
+          backgroundColor: team.color + '22',
+          tension: 0.35,
+          fill: true,
+          pointRadius: YEARS.map(y => isEvent(y) ? 8 : 4),
+          pointBackgroundColor: YEARS.map(y => isEvent(y) ? '#d81b60' : team.color),
+          pointBorderColor: YEARS.map(y => isEvent(y) ? team.color : team.color),
+          pointBorderWidth: YEARS.map(y => isEvent(y) ? 2 : 1),
+          borderWidth: 2,
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            ...tooltipDefaults,
+            callbacks: {
+              title: items => `Season ${items[0].label}`,
+              label: item => {
+                const yr = YEARS[item.dataIndex];
+                const ev = events.find(e => e.year === yr);
+                const lines = [`Followers: ${item.raw.toFixed(1)}M`];
+                if (ev) lines.push(`★ ${ev.label}`);
+                return lines;
+              }
+            }
+          }
+        },
+        scales: {
+          y: { ticks: { color: '#a0506a', callback: v => v+'M' }, grid: { color: 'rgba(180,0,60,0.08)' } },
+          x: { ticks: { color: '#a0506a' }, grid: { color: 'rgba(180,0,60,0.08)' } }
+        }
+      }
+    });
+    allCharts.push(c1);
+  }
+
+  // Wins bar chart
+  const wc = document.getElementById('winsChart');
+  if (wc) {
+    const c2 = new Chart(wc, {
+      type: 'bar',
+      data: {
+        labels: YEARS,
+        datasets: [{
+          label: 'Wins',
+          data: team.wins,
+          backgroundColor: YEARS.map(y => isEvent(y) ? '#d81b60' : team.color + 'aa'),
+          borderColor: YEARS.map(y => isEvent(y) ? '#a0002a' : team.color),
+          borderWidth: 1,
+          borderRadius: 4,
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            ...tooltipDefaults,
+            callbacks: {
+              title: items => `${items[0].label} season`,
+              label: item => {
+                const yr = YEARS[item.dataIndex];
+                const ev = events.find(e => e.year === yr);
+                const lines = [`Wins: ${item.raw}`];
+                if (ev) lines.push(`★ ${ev.label}`);
+                return lines;
+              }
+            }
+          }
+        },
+        scales: {
+          y: { max: 18, ticks: { color: '#a0506a', stepSize: 3 }, grid: { color: 'rgba(180,0,60,0.08)' } },
+          x: { ticks: { color: '#a0506a', autoSkip: false, maxRotation: 45 }, grid: { display: false } }
+        }
+      }
+    });
+    allCharts.push(c2);
+  }
+}
+
+// =======================================================
+//  HELPERS
+// =======================================================
+function goPage(p)     { currentPage = p; currentTeam = null; render(); window.scrollTo(0,0); }
+function goTeam(name)  { currentPage = 'team'; currentTeam = name; render(); window.scrollTo(0,0); }
+function setConf(c)    { confFilter = c; render(); }
+function toggleTeam(n) { hiddenTeams.has(n) ? hiddenTeams.delete(n) : hiddenTeams.add(n); render(); }
+function esc(s)        { return s.replace(/'/g, "\\'"); }
+
+// Boot
+render();
+</script>
+</body>
+</html>
