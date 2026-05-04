@@ -3,59 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NFL × Instagram | Home</title>
+<title>NFL × Instagram | Capstone Project</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
     --bg: #fce4ec; --surface: #fff0f5; --surface2: #ffd6e7;
     --border: rgba(180,0,60,0.15); --text: #2d0a1a; --muted: #a0506a;
     --accent: #d81b60; --accent2: #001f5b;
-    --font-display: 'Bebas Neue', sans-serif;
-    --font-body: 'DM Sans', sans-serif;
+    --font-display: 'Bebas Neue', sans-serif; --font-body: 'DM Sans', sans-serif;
     --radius: 10px; --radius-lg: 16px;
   }
   html { scroll-behavior: smooth; }
-  body { font-family: var(--font-body); background: var(--bg); color: var(--text); min-height: 100vh; font-size: 15px; line-height: 1.6; }
-  .nav { position: sticky; top: 0; z-index: 100; background: rgba(252,228,236,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 6px; padding: 10px 20px; flex-wrap: wrap; }
-  .nav-logo { font-family: var(--font-display); font-size: 22px; letter-spacing: 1px; color: var(--accent2); margin-right: 12px; flex-shrink: 0; display: flex; align-items: center; gap: 8px; text-decoration: none; }
-  .nav-logo img { height: 28px; width: auto; }
-  .nav-link { padding: 5px 14px; border-radius: 6px; border: 1px solid var(--border); background: transparent; color: var(--muted); font-size: 13px; font-family: var(--font-body); cursor: pointer; transition: all 0.15s; white-space: nowrap; text-decoration: none; display: inline-block; }
-  .nav-link:hover { background: var(--surface2); color: var(--text); }
-  .nav-link.active { background: var(--accent2); color: #fff; border-color: var(--accent2); font-weight: 600; }
-  .hero { padding: 56px 24px 40px; max-width: 860px; margin: 0 auto; }
-  .hero-eyebrow { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
-  .hero-title { font-family: var(--font-display); font-size: clamp(52px, 10vw, 88px); line-height: 0.95; letter-spacing: 2px; color: var(--text); margin-bottom: 20px; }
-  .hero-title span { color: var(--accent2); }
-  .hero-subtitle { font-size: 16px; color: var(--muted); max-width: 580px; line-height: 1.7; margin-bottom: 32px; }
-  .nfl-stripe { display: flex; height: 5px; border-radius: 3px; overflow: hidden; margin-bottom: 28px; gap: 2px; }
-  .nfl-stripe span { flex: 1; border-radius: 1px; }
-  .stats-row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 48px; }
-  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; min-width: 120px; position: relative; overflow: hidden; }
-  .stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
-  .stat-card:nth-child(1)::before { background: #E31837; }
-  .stat-card:nth-child(2)::before { background: #003594; }
-  .stat-card:nth-child(3)::before { background: #203731; }
-  .stat-num { font-family: var(--font-display); font-size: 36px; color: var(--accent2); line-height: 1; }
-  .stat-lbl { font-size: 12px; color: var(--muted); margin-top: 4px; }
-  .section { max-width: 860px; margin: 0 auto 32px; padding: 0 24px; }
-  .section-title { font-family: var(--font-display); font-size: 28px; letter-spacing: 1px; margin-bottom: 16px; color: var(--text); }
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; margin-bottom: 16px; }
-  .card p { color: var(--muted); line-height: 1.8; margin-bottom: 12px; font-size: 15px; }
-  .card p:last-child { margin-bottom: 0; }
-  .card p strong { color: var(--text); font-weight: 600; }
-  .tag { display: inline-block; background: rgba(216,27,96,0.1); color: var(--accent); border: 1px solid rgba(216,27,96,0.25); border-radius: 100px; font-size: 11px; padding: 3px 10px; margin: 3px; font-weight: 500; }
-  .about-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
-  .member-card { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
-  .avatar { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 18px; margin-bottom: 10px; }
-  .member-name { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
-  .member-role { font-size: 12px; color: var(--accent); margin-bottom: 6px; }
-  .member-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
-  .nav-links-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
-  .next-btn { display: inline-block; padding: 10px 22px; background: var(--accent2); color: #fff; border-radius: var(--radius); font-size: 13px; font-weight: 600; text-decoration: none; transition: opacity 0.15s; }
-  .next-btn:hover { opacity: 0.85; }
-  .footer { border-top: 1px solid var(--border); padding: 20px 24px; text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px; max-width: 860px; margin-left: auto; margin-right: auto; }
-    html { scroll-behavior: smooth; }
   body { font-family: var(--font-body); background: var(--bg); color: var(--text); min-height: 100vh; font-size: 15px; line-height: 1.6; }
   .nav { position: sticky; top: 0; z-index: 100; background: rgba(252,228,236,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 6px; padding: 10px 20px; flex-wrap: wrap; }
   .nav-logo { font-family: var(--font-display); font-size: 22px; letter-spacing: 1px; color: var(--accent2); margin-right: 12px; flex-shrink: 0; display: flex; align-items: center; gap: 8px; }
@@ -183,7 +143,6 @@
 </div>
 <div class="page" id="page-team"><div class="team-page-inner" id="teamPageInner"></div></div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script>
 const YEARS=[2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024];
 const EVENTS=[
