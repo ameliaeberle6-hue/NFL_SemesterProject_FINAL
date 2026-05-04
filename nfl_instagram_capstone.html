@@ -487,6 +487,10 @@
     </p>
   </div>
 </div>
+  <div class="section">
+    <h2 class="section-title">Browse teams</h2>
+    <div class="team-grid" id="compareTeamGrid"></div>
+  </div>
 
 
 
@@ -726,6 +730,26 @@ function renderCompare() {
     <span class="legend-item ${hiddenTeams.has(t.name)?'hidden':''}" onclick="toggleTeam('${esc(t.name)}')">
       <span class="legend-swatch" style="background:${t.color};"></span>${t.abbr}
     </span>`).join('');
+
+  // Team browser grid
+  const gridEl = document.getElementById('compareTeamGrid');
+  if (gridEl) {
+    gridEl.innerHTML = filtered.map(t => {
+      const hex = t.color.replace('#','');
+      const r = parseInt(hex.slice(0,2),16), g = parseInt(hex.slice(2,4),16), b = parseInt(hex.slice(4,6),16);
+      const brightness = (r*299 + g*587 + b*114) / 1000;
+      const textColor = brightness > 128 ? '#111' : '#fff';
+      return `
+        <div class="team-chip" onclick="goTeam('${esc(t.name)}')"
+          style="background: linear-gradient(135deg, ${t.color}ee, ${t.color}99); border-color: ${t.color}66; color: ${textColor};">
+          <span class="team-abbr-badge">${t.abbr}</span>
+          <div>
+            <div class="team-chip-name">${t.name}</div>
+            <div class="team-chip-conf">${t.conf} · ${t.div}</div>
+          </div>
+        </div>`;
+    }).join('');
+  }
 
   // Chart
   const canvas = document.getElementById('compareChart');
