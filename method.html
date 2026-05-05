@@ -49,6 +49,30 @@
   .btn-secondary { background: transparent; border: 1px solid var(--border); color: var(--muted); }
   .btn:hover { opacity: 0.8; }
   .footer { border-top: 1px solid var(--border); padding: 20px 24px; text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px; }
+
+  /* VISUAL — CARTOON GLASSES + LAPTOP */
+  .visual-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px 24px 24px; margin: 36px 0; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+  .visual-box-title { font-family: var(--font-display); font-size: 20px; letter-spacing: 1px; color: var(--text); }
+  .glasses-wrap { animation: floatUp 3s ease-in-out infinite; }
+  @keyframes floatUp { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+  .laptop-wrap { display: flex; flex-direction: column; align-items: center; }
+  .screen { width: 220px; height: 130px; background: #0d1117; border-radius: 12px 12px 4px 4px; border: 3px solid var(--accent2); padding: 12px 14px; position: relative; overflow: hidden; }
+  .screen-shine { position: absolute; top: 0; left: 0; right: 0; height: 40%; background: linear-gradient(to bottom, rgba(255,255,255,0.04), transparent); pointer-events: none; border-radius: 9px 9px 0 0; }
+  .code-line { font-family: 'Courier New', monospace; font-size: 9.5px; line-height: 1.75; white-space: nowrap; }
+  .ck{color:#ff79c6}.cb{color:#8be9fd}.cg{color:#50fa7b}.cy{color:#f1fa8c}.cw{color:#f8f8f2}.cp{color:#bd93f9}
+  .cursor { display: inline-block; width: 6px; height: 11px; background: #50fa7b; vertical-align: middle; margin-left: 1px; animation: blinkC 1s step-end infinite; }
+  @keyframes blinkC { 0%,100%{opacity:1} 50%{opacity:0} }
+  .laptop-base { width: 238px; height: 10px; background: #002a70; border-radius: 0 0 6px 6px; }
+  .laptop-hinge { width: 70px; height: 6px; background: var(--accent2); border-radius: 0 0 4px 4px; }
+  .sparks { position: relative; height: 28px; width: 280px; }
+  .sp { position: absolute; font-size: 13px; animation: sparkle 2.2s ease-in-out infinite; opacity: 0; }
+  .sp:nth-child(1){left:4%;animation-delay:0s}
+  .sp:nth-child(2){left:22%;animation-delay:0.5s}
+  .sp:nth-child(3){left:48%;animation-delay:1s}
+  .sp:nth-child(4){left:70%;animation-delay:0.3s}
+  .sp:nth-child(5){left:88%;animation-delay:1.4s}
+  @keyframes sparkle{0%,100%{opacity:0;transform:translateY(0) scale(0.5)}50%{opacity:1;transform:translateY(-10px) scale(1)}}
+  .visual-caption { font-size: 12px; color: var(--muted); text-align: center; line-height: 1.6; }
 </style>
 </head>
 <body>
@@ -69,9 +93,7 @@
 <div class="page-wrap">
   <p class="page-eyebrow">Section 02</p>
   <h1 class="page-title">Research<br><span>Methodology</span></h1>
-  <p class="page-subtitle">
-
-  </p>
+  <p class="page-subtitle">A step-by-step account of how we collected, organized, and analyzed data to answer our research question.</p>
   <div class="nfl-stripe">
     <span style="background:#E31837;"></span><span style="background:#003594;"></span>
     <span style="background:#FB4F14;"></span><span style="background:#203731;"></span>
@@ -80,13 +102,7 @@
   </div>
 
   <h2 class="section-label">Research Question</h2>
-  <p class="prose">
-    Our central question is: <strong>Does NFL team performance correlate with Instagram follower growth?</strong>
-    This is a quantitative research question. It asks whether two measurable variables move
-    together in a statistically meaningful way. To answer it, we needed two parallel datasets:
-    one tracking each team's regular season win/loss record year by year, and one tracking
-    each team's Instagram follower count over the same period.
-  </p>
+  <p class="prose">Our central question is: <strong>Does NFL team performance correlate with Instagram follower growth?</strong> This is a quantitative research question. It asks whether two measurable variables move together in a statistically meaningful way. To answer it, we needed two parallel datasets: one tracking each team’s regular season win/loss record year by year, and one tracking each team’s Instagram follower count over the same period.</p>
 
   <h2 class="section-label">Data Collection</h2>
   <div class="card">
@@ -95,77 +111,71 @@
         <span class="step-num">01</span>
         <div class="step-text">
           <strong>NFL Win/Loss Records — Covers.com</strong>
-          We collected regular season win totals for all 32 NFL teams from 2012 through 2024
-          using Covers.com's historical standings pages (e.g.,
-          <a href="https://www.covers.com/sport/football/nfl/standings/2012-2013" style="color:var(--accent2);" target="_blank">covers.com/sport/football/nfl/standings/2012-2013</a>).
-          For each season, we recorded each team's regular season win total. Data was recorded manually into a
-          shared spreadsheet.
+          We collected regular season win totals for all 32 NFL teams from 2012 through 2024 using Covers.com’s historical standings pages (e.g., <a href="https://www.covers.com/sport/football/nfl/standings/2012-2013" target="_blank" style="color:var(--accent2);">covers.com/sport/football/nfl/standings/2012-2013</a>). For each season, we recorded each team’s regular season win total. Data was recorded manually into a shared spreadsheet.
         </div>
       </li>
       <li>
         <span class="step-num">02</span>
         <div class="step-text">
           <strong>Instagram Follower Counts — Social Blade</strong>
-          Instagram follower counts were collected using Social Blade
-          (<a href="https://socialblade.com" style="color:var(--accent2);" target="_blank">socialblade.com</a>),
-          a third-party analytics platform that tracks historical social media statistics.
-          For each of the 32 NFL teams, we looked up the official team Instagram account
-          and recorded approximate follower counts at the end of each calendar year from
-          2012 to 2024. 
+          Instagram follower counts were collected using Social Blade (<a href="https://socialblade.com" target="_blank" style="color:var(--accent2);">socialblade.com</a>), a third-party analytics platform that tracks historical social media statistics. For each of the 32 NFL teams, we looked up the official team Instagram account and recorded approximate follower counts at the end of each calendar year from 2012 to 2024.
         </div>
       </li>
       <li>
         <span class="step-num">03</span>
         <div class="step-text">
           <strong>Cultural Event Annotation</strong>
-          In addition to Instagram followers and NFL win/loss records, we also manually made a list off 
-          off-field events that could possibly explain outlier follower spikes. these included
-          celebrity relationships with players, Super Bowl wins, and viral media moments. These were flagged in our graphs to provide context.
+          In addition to Instagram followers and NFL win/loss records, we also manually made a list of off-field events that could possibly explain outlier follower spikes. These included celebrity relationships with players, Super Bowl wins, and viral media moments. These were flagged in our graphs to provide context.
         </div>
       </li>
     </ul>
   </div>
 
-  <h2 class="section-label">Scope & Limitations</h2>
-  <p class="prose">
-    To keep the project manageable, we made several deliberate boundaries.
-    1.) We focused only on regular season win totals.
-    
-    2.) We used year-end follower snapshots rather than tracking follower counts
-    on a weekly or monthly basis. 
-    
-    3.) We limited our analysis to the official team Instagram accounts. This was important to make sure
-    we were measuring team-level brand growth rather than individual athlete popularity.
-  
-  </p>
+  <h2 class="section-label">Scope &amp; Limitations</h2>
+  <p class="prose">To keep the project manageable, we made several deliberate boundaries. 1.) We focused only on regular season win totals. 2.) We used year-end follower snapshots rather than tracking follower counts on a weekly or monthly basis. 3.) We limited our analysis to the official team Instagram accounts. This was important to make sure we were measuring team-level brand growth rather than individual athlete popularity.</p>
 
   <h2 class="section-label">Analysis Approach</h2>
-  <p class="prose">
-    Our analysis is primarily <strong>quantitative</strong>. We compared win totals to year-over-year
-    follower growth rates for each team and looked for patterns across the league.
-    We also gathered more <strong>qualitative</strong> data by identifying
-    then researching what off-field factors might explain those anomalies.
-  </p>
-  
-  
-  </p>
+  <p class="prose">Our analysis is primarily quantitative. We compared win totals to year-over-year follower growth rates for each team and looked for patterns across the league. We also gathered more qualitative data by identifying then researching what off-field factors might explain those anomalies.</p>
 
   <h2 class="section-label">AI Tool Usage</h2>
   <div class="ai-card">
     <div class="ai-card-label">Reflection on AI in Our Process</div>
-    <p class="prose" style="margin-bottom:12px;">
-      We used
-      <strong>Claude</strong>. We find it very important to be transparent about what we used these tools for.
-    <p class="prose" style="margin-bottom:12px;">
-      <strong>Claude</strong> was used a lot to build the website you are currently reading! at first we didn't know what we wanted the webste to look like, so Claude helped us play around with vibes, looks, and organization before we really got to work. We then started working in VS Code and were behind and confused lots on some parts. Claude helped fix our code and clean up code where needed.
-      We made it a priority to understand the code we were given and to ask follow-up questions when we didn't. 
-      
-
-     
-      
-    </p>
+    <p class="prose" style="margin-bottom:12px;">We used Claude. We find it very important to be transparent about what we used these tools for.</p>
+    <p class="prose" style="margin-bottom:0;">Claude was used a lot to build the website you are currently reading! At first we didn’t know what we wanted the website to look like, so Claude helped us play around with vibes, looks, and organization before we really got to work. We then started working in VS Code and were behind and confused on some parts. Claude helped fix our code and clean up code where needed. We made it a priority to understand the code we were given and to ask follow-up questions when we didn’t.</p>
   </div>
-
+  <!-- VISUAL: CARTOON GLASSES + LAPTOP -->
+  <div class="visual-box">
+    <div class="sparks">
+      <span class="sp">✨</span><span class="sp">⭐</span><span class="sp">💻</span><span class="sp">✨</span><span class="sp">🌟</span>
+    </div>
+    <div class="glasses-wrap">
+      <svg width="240" height="90" viewBox="0 0 240 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0" y1="30" x2="22" y2="38" stroke="#1a1a2e" stroke-width="5" stroke-linecap="round"/>
+        <rect x="22" y="14" width="80" height="58" rx="16" ry="16" fill="#d4eeff" fill-opacity="0.4" stroke="#1a1a2e" stroke-width="5"/>
+        <ellipse cx="42" cy="28" rx="10" ry="6" fill="white" fill-opacity="0.35" transform="rotate(-15 42 28)"/>
+        <path d="M102 38 Q120 28 138 38" stroke="#1a1a2e" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <rect x="138" y="14" width="80" height="58" rx="16" ry="16" fill="#d4eeff" fill-opacity="0.4" stroke="#1a1a2e" stroke-width="5"/>
+        <ellipse cx="158" cy="28" rx="10" ry="6" fill="white" fill-opacity="0.35" transform="rotate(-15 158 28)"/>
+        <line x1="218" y1="30" x2="240" y2="22" stroke="#1a1a2e" stroke-width="5" stroke-linecap="round"/>
+        <ellipse cx="107" cy="46" rx="4" ry="5" fill="#1a1a2e" fill-opacity="0.2"/>
+        <ellipse cx="133" cy="46" rx="4" ry="5" fill="#1a1a2e" fill-opacity="0.2"/>
+      </svg>
+    </div>
+    <div class="laptop-wrap">
+      <div class="screen">
+        <div class="screen-shine"></div>
+        <div class="code-line"><span class="ck">const</span> <span class="cb">NFL</span> <span class="cw">= {</span></div>
+        <div class="code-line">&nbsp;&nbsp;<span class="cg">teams</span><span class="cw">:</span> <span class="cy">32</span><span class="cw">,</span></div>
+        <div class="code-line">&nbsp;&nbsp;<span class="cg">seasons</span><span class="cw">:</span> <span class="cy">13</span><span class="cw">,</span></div>
+        <div class="code-line">&nbsp;&nbsp;<span class="cg">tool</span><span class="cw">:</span> <span class="cy">"Claude"</span></div>
+        <div class="code-line"><span class="cw">};</span></div>
+        <div class="code-line" style="margin-top:3px;"><span class="cp">buildSite</span><span class="cw">(NFL)</span><span class="cursor"></span></div>
+      </div>
+      <div class="laptop-base"></div>
+      <div class="laptop-hinge"></div>
+    </div>
+    <p class="visual-caption">We used Claude to help build this site.<br>We made sure to understand every line.</p>
+  </div>
   <hr>
   <div class="nav-btns">
     <a href="literature.html" class="btn btn-secondary">← Literature Review</a>
@@ -173,8 +183,7 @@
   </div>
 </div>
 
-<div class="footer">
-</div>
 
+<div class="footer">Capstone Project · Data sourced from Covers.com, Social Blade, and NFL.com · 2025</div>
 </body>
 </html>

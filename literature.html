@@ -34,8 +34,6 @@
   .prose strong { color: var(--text); font-weight: 600; }
   .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px 28px; margin-bottom: 20px; }
   .card-label { font-family: var(--font-display); font-size: 16px; letter-spacing: 1px; color: var(--accent2); margin-bottom: 10px; }
-  .cite { font-size: 12px; color: var(--accent); margin-top: 10px; font-style: italic; }
-  .cite a { color: var(--accent); }
   hr { border: none; border-top: 1px solid var(--border); margin: 36px 0; }
   .nav-btns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 48px; }
   .btn { display: inline-block; padding: 10px 22px; border-radius: var(--radius); font-size: 13px; font-weight: 600; text-decoration: none; transition: opacity 0.15s; }
@@ -43,6 +41,29 @@
   .btn-secondary { background: transparent; border: 1px solid var(--border); color: var(--muted); }
   .btn:hover { opacity: 0.8; }
   .footer { border-top: 1px solid var(--border); padding: 20px 24px; text-align: center; font-size: 12px; color: var(--muted); margin-top: 48px; }
+
+  /* STACKED BOOKS */
+  .books-section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px 24px 28px; margin: 36px 0; text-align: center; }
+  .books-section-title { font-family: var(--font-display); font-size: 22px; letter-spacing: 1px; color: var(--text); margin-bottom: 4px; }
+  .books-section-sub { font-size: 12px; color: var(--muted); margin-bottom: 32px; }
+  .stack-outer { display: flex; flex-direction: column; align-items: center; }
+  .stack-wrap { position: relative; width: 300px; }
+  .book {
+    position: absolute;
+    left: 50%;
+    border-radius: 3px 8px 8px 3px;
+    opacity: 0;
+    transform: translateX(-50%) translateY(50px);
+    transition: opacity 0.45s ease, transform 0.6s cubic-bezier(0.34, 1.4, 0.64, 1);
+    box-shadow: 4px -5px 18px rgba(0,0,0,0.28), inset -5px 0 10px rgba(0,0,0,0.15);
+  }
+  .book.show {
+    opacity: 1;
+    transform: translateX(calc(-50% + var(--shift))) translateY(0) rotate(var(--tilt));
+  }
+  .book-spine { position: absolute; left: 0; top: 0; bottom: 0; width: 12px; border-radius: 3px 0 0 3px; background: rgba(0,0,0,0.22); }
+  .book-pages { position: absolute; right: 0; top: 3px; bottom: 3px; width: 8px; background: repeating-linear-gradient(to bottom, #f5e6c8 0px, #f5e6c8 2px, #e0cca0 2px, #e0cca0 3px); border-radius: 0 4px 4px 0; }
+  .stack-shadow { width: 200px; height: 14px; background: radial-gradient(ellipse, rgba(0,0,0,0.22) 0%, transparent 70%); border-radius: 50%; margin-top: 6px; }
 </style>
 </head>
 <body>
@@ -63,8 +84,7 @@
 <div class="page-wrap">
   <p class="page-eyebrow">Section 01</p>
   <h1 class="page-title">Literature<br><span>Review</span></h1>
-  <p class="page-subtitle">
-  </p>
+  <p class="page-subtitle">A survey of research on social media, sports fandom, and the relationship between athletic performance and digital audience growth.</p>
   <div class="nfl-stripe">
     <span style="background:#E31837;"></span><span style="background:#003594;"></span>
     <span style="background:#FB4F14;"></span><span style="background:#203731;"></span>
@@ -72,49 +92,29 @@
     <span style="background:#0047AB;"></span><span style="background:#002244;"></span>
   </div>
 
-  <h2 class="section-label">Social Media & Sports Organizations</h2>
-  <p class="prose">
-NFL teams have really started to lean into Instagram as a way to connect with their fans in a more real, everyday way. When you actually look at what works, it’s not necessarily the super polished, overly promotional posts. Instead, it is often the behind-the-scenes moments, the locker room clips, the player personalities, something unique, or the little things fans wouldn’t normally get to see. That kind of content just feels more genuine, and people respond to it way more. At the end of the day, it shows that fans ultimately care about feeling connected even more than winning or stats, at least when it comes to social media. Personality and access matter just as much as performance, if not more.  <p class="prose">
+  <!-- COLOR-ONLY STACKED BOOKS — NO TEXT ON BOOKS -->
+  <div class="books-section">
 
-  </p>
+    <div class="stack-outer">
+      <div class="stack-wrap" id="stackWrap"></div>
+      <div class="stack-shadow"></div>
+    </div>
+  </div>
 
+  <h2 class="section-label">Social Media &amp; Sports Organizations</h2>
+  <p class="prose">NFL teams have really started to lean into Instagram as a way to connect with their fans in a more real, everyday way. When you actually look at what works, it’s not necessarily the super polished, overly promotional posts. Instead, it is often the behind-the-scenes moments, the locker room clips, the player personalities, something unique, or the little things fans wouldn’t normally get to see. That kind of content just feels more genuine, and people respond to it way more. At the end of the day, it shows that fans ultimately care about feeling connected even more than winning or stats, at least when it comes to social media. Personality and access matter just as much as performance, if not more.</p>
 
-  <h2 class="section-label">Athletic Performance & Fan Engagement</h2>
-  <p class="prose">
-    Several studies have examined this direct relationship between on-field success and fan behavior that we speak of.
-   It has been found that winning percentage is positively
-    connected to game attendance, merchandise sales, and overall media exposure. However, their
-    findings also showed that this effect has variables. For example, teams that are consistently good do not see
-    massive increases in engagement over time. 
+  <h2 class="section-label">Athletic Performance &amp; Fan Engagement</h2>
+  <p class="prose">Several studies have examined this direct relationship between on-field success and fan behavior that we speak of. It has been found that winning percentage is positively connected to game attendance, merchandise sales, and overall media exposure. However, their findings also showed that this effect has variables. For example, teams that are consistently good do not see massive increases in engagement over time.</p>
 
-
-  <h2 class="section-label">Celebrity Culture & Sports Crossover</h2>
-  <p class="prose">
-    An important aspect of sports social media growth that has not been talked about enough is the role of
-    celebrity culture and media crossover. We see lots of correlation between the popularity of outside celebrities (not football players) and the engagement levels of sports teams' social media accounts if fans find them in a relationship or a fan of a team.
-  </p>
-
-  
+  <h2 class="section-label">Celebrity Culture &amp; Sports Crossover</h2>
+  <p class="prose">An important aspect of sports social media growth that has not been talked about enough is the role of celebrity culture and media crossover. We see lots of correlation between the popularity of outside celebrities (not football players) and the engagement levels of sports teams’ social media accounts if fans find them in a relationship or a fan of a team.</p>
 
   <h2 class="section-label">Instagram as a Research Subject</h2>
-  <p class="prose">Instagram launched in 2010 and was acquired by Facebook in 2012. It has since become a main platform for sports content. Visual platforms such as this are largely well-suited to sports content because they capture the aesthetic and emotional aspects of athletic performance in ways that a text-only method simply cannot.
+  <p class="prose">Instagram launched in 2010 and was acquired by Facebook in 2012. It has since become a main platform for sports content. Visual platforms such as this are largely well-suited to sports content because they capture the aesthetic and emotional aspects of athletic performance in ways that a text-only method simply cannot.</p>
 
-
-  </p>
-  <p class="prose">
-     
-  </p>
-
-  <h2 class="section-label">What We Still Don't Know</h2>
-  <p class="prose">
-    There is a growing body of research on this matter, but several questions remain. Most studies
-    focus on short time windows, such as a single season or a few years. This makes it difficult to identify
-    long-term trends. Few studies have truly tried to seperate the specific contribution
-    of unique external events that go "viral" within our culture (celebrity news, viral moments, controversies, drama, etc) from
-    performance-based growth. Our project contributes to addressing both of these gaps by
-    examining a thirteen-year dataset and intentionally flagging known cultural events as
-    variables in our analysis.
-  </p>
+  <h2 class="section-label">What We Still Don’t Know</h2>
+  <p class="prose">There is a growing body of research on this matter, but several questions remain. Most studies focus on short time windows, such as a single season or a few years. This makes it difficult to identify long-term trends. Few studies have truly tried to separate the specific contribution of unique external events that go “viral” within our culture (celebrity news, viral moments, controversies, drama, etc) from performance-based growth. Our project contributes to addressing both of these gaps by examining a thirteen-year dataset and intentionally flagging known cultural events as variables in our analysis.</p>
 
   <hr>
   <div class="nav-btns">
@@ -123,8 +123,46 @@ NFL teams have really started to lean into Instagram as a way to connect with th
   </div>
 </div>
 
-<div class="footer">
-</div>
+<div class="footer">Capstone Project · Data sourced from Covers.com, Social Blade, and NFL.com · 2025</div>
 
+<script>
+const BOOKS = [
+  { color: "#004C54", h: 50, w: 260, tilt: -1.8, shift: "3px"  },
+  { color: "#003594", h: 54, w: 248, tilt:  2.2, shift: "-3px" },
+  { color: "#d81b60", h: 48, w: 270, tilt: -2.5, shift: "4px"  },
+  { color: "#7B0000", h: 56, w: 252, tilt:  1.8, shift: "-2px" },
+  { color: "#0047AB", h: 50, w: 264, tilt: -1.2, shift: "1px"  },
+  { color: "#203731", h: 52, w: 255, tilt:  2.8, shift: "-4px" },
+  { color: "#c83803", h: 58, w: 272, tilt: -2.0, shift: "3px"  },
+  { color: "#E31837", h: 54, w: 268, tilt:  1.2, shift: "-1px" },
+];
+
+const wrap = document.getElementById('stackWrap');
+let bottom = 0;
+const bookEls = [];
+
+BOOKS.forEach((b, i) => {
+  const el = document.createElement('div');
+  el.className = 'book';
+  el.style.cssText = `background:${b.color};height:${b.h}px;width:${b.w}px;bottom:${bottom}px;--tilt:${b.tilt}deg;--shift:${b.shift};transition-delay:${i * 0.1}s;`;
+  el.innerHTML = '<div class="book-spine"></div><div class="book-pages"></div>';
+  wrap.appendChild(el);
+  bookEls.push(el);
+  bottom += b.h - 3;
+});
+
+wrap.style.height = (bottom + 24) + 'px';
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      bookEls.forEach((el, i) => setTimeout(() => el.classList.add('show'), i * 130));
+      observer.disconnect();
+    }
+  });
+}, { threshold: 0.1 });
+
+observer.observe(wrap);
+</script>
 </body>
 </html>
